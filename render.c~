@@ -1,6 +1,0 @@
-#include "render.h"
-
-void update()
-{
-	al_flip_display();
-}
