@@ -6,7 +6,7 @@ This is the second incarnation of the Level Editor for GitM.
 Build/Install instructions
 --------------------------
 
-Dependancies - 
+Dependencies - 
 allegro5
 
 On Windows - 
