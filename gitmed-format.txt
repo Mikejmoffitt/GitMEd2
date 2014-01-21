@@ -1,0 +1,85 @@
+Ghost in the Machine Level Format
+Michael Moffitt
+1/20/2014
+
+Basically it is a big mess of CSV. Comma ',' is the delimeter.
+
+The trailing comma is important. I think I fixed it, but at some point my terrible
+parser complained about the missing delimiter at the end. Just play it safe and
+include it. This 
+
+Line 0 is meta-data in the following format:
+
+	{levelName},{levelAuthor},{levelSecretText},
+
+Following line 0 is the start of Layer 0 data.
+
+A layer's maximum width and height is 224 x 224.
+
+Layer 0 data looks like this:
+
+0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,6,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
+
+so on and so forth. To end the layer is a line containing 'X':
+
+
+0,0,0,0,0,0,0,0,0,1,1,1,1,1,0,0,0,0,0,0,6,0,0,0,0,0,
+0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0,0,0,0,
+X
+
+after that is layer 1, stopped with an 'X' again. Layer 2 is terminated that way too. 
+Anything after layer 2 doesn't matter, put whatever you want there, comments,
+I don't care. 
+
+With that squared away, here are the definitions for the values in each layer:
+
+Layer 0 (background):
+0 - Empty
+1 - Wall
+2 - Backpipe
+3 - Pillar
+4 - Right conveyor belt
+5 - Left conveyor belt
+6 - Diamondplate
+7 - Start tile (should only be one, if the game sees more than one it uses the last)
+8 - End tile (same as above)
+
+Layer 1 (sprites):
+0 - Empty
+1 - Not used (undefined behavior I guess)
+2 - Bear trap
+3 - Normally open downwards door (extend downwards for door lengths)
+4 - Normally closed downwards door
+5 - Switch (low)
+6 - Switch (med)
+7 - Switch (high)
+8 - Spikes
+9 - Piston top
+10 - Piston top (half-tile shifted)
+11 - Piston
+12 - Piston (half-tile shifted)
+13 - Normally open left door
+14 - Normally closed left door
+15 through 19 undefined ( don't use them, I may fill them later )
+20 - Normally open right door
+21 - Normally closed right door
+
+Layer 2 (extra):
+0 - Empty
+1 - Water tile
+2 - Background waterfall
+3 - Foreground waterfall
+4 - Wrench
+5 - Ceiling water drip
+6 - Pipe tile
+7 - Vent
+8 - Up arrow
+9 - Down arrow
+10 - Left arrow
+11 - Right arrow
+12 - Brick tile
+13 - Climbing wall marker
+14 - Crate
+
+Tiles in-game are 16 x 16 pixels.
